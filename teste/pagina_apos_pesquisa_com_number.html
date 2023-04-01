@@ -1,0 +1,709 @@
+<html lang="pt-br"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sistema de gestão processual eletrônico do tribunal de justiça do Amapá">
+
+
+    <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/favicon.png" type="image/png">
+
+    <title>Tucujuris - Tribunal de justiça do Estado do Amapá</title>
+
+    <script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/releases/NZrMWHVy58-S9gVvad9HVGxk/recaptcha__pt_br.js" crossorigin="anonymous" integrity="sha384-Gm5wjyaR8sAJBKa/cy49UOkbV8XjISW/nIrBvJsGRLjOcllltxPWbg2FWxVORO1m"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.4/polyfill.min.js"></script>
+    <!-- <script src="https://unpkg.com/@adonisjs/websocket-client"></script> -->
+
+
+    
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../css/tucujuris2017.min.css">
+
+    
+<style>
+    .form-control-captcha {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    #detalhe-processo {
+        position: relative;
+    }
+
+    .acoes-processo {
+        background-color: #e5e5e5;
+        padding: 10px 20px;
+        min-width: 325px;
+    }
+
+    .input-cadastrar-email-push {
+        margin-bottom: 4px;
+        width: 100%;
+    }
+
+    .consulta-processo-page {
+        max-width: 1280px;
+    }
+
+    @media all and (min-width : 730px) {
+        .acoes-processo {
+            width: 40%;
+            max-width: 325px;
+            position: absolute;
+            right: 0;
+            top: -12px;
+            z-index: 1;
+        }
+
+        /* mensagem de erro do componente de detalhes do processo. ex: segredo de justiça */
+        .acoes-processo+detalhesprocesso .indicador-erro {
+            max-width: 60%;
+        }
+    }
+
+    @media all and (max-width : 730px) {
+        .radio-inline {
+            display: block;
+            /* corrige a margem que o bs coloca nos radios inline*/
+            margin-left: 0 !important;
+            padding-top: 10px;
+        }
+    }
+</style>
+
+
+    <script>
+
+        if (navigator.appName == 'Microsoft Internet Explorer'
+            || !!(navigator.userAgent.match(/Trident/)
+            || navigator.userAgent.match(/rv:11/))
+            || navigator.userAgent.indexOf('MSIE')!==-1
+            || navigator.appVersion.indexOf('Trident/') > 0
+            )
+        {
+            if ((window.location.href || "").indexOf("navegador-nao-suportado") === -1){
+                window.location.href = '../navegador-nao-suportado/navegador-nao-suportado.html';
+            }
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
+    <script>window.requirejs || document.write('<script src="../../bower_modules/requirejs/require.js"><\/script>')</script>
+
+    <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+
+    
+
+<script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="../../js/app" src="./../../js/app.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="./../../bower_modules/jquery/dist/jquery.min.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/seguranca" src="./../../js/seguranca.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/ui" src="./../../js/ui.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/uri-util" src="./../../js/uri-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/promise-util" src="./../../js/promise-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/usuario-util" src="./../../js/usuario-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/notificador" src="./../../js/notificador.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="servicos/auth" src="./../../servicos/auth.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/perfilusuario/perfilusuario" src="./../../componentes/perfilusuario/perfilusuario.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="./../../bower_modules/bootstrap/dist/js/bootstrap.min.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/sessao" src="./../../js/sessao.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="knockout" src="./../../bower_modules/knockout/dist/knockout.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/util" src="./../../js/util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/ds" src="./../../js/ds.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/aplicativos" src="./../../js/aplicativos.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="text" src="./../../bower_modules/requirejs-text/text.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/mensageria" src="./../../js/mensageria.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/config" src="./../../js/config.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="knockout-es5" src="./../../bower_modules/knockout-es5/dist/knockout-es5.min.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="amplify" src="./../../bower_modules/amplify/lib/amplify.store.min.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/arvore-util" src="./../../js/arvore-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/lista-util" src="./../../js/lista-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/datas" src="./../../js/datas.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/clipboard-util" src="./../../js/clipboard-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="moment" src="./../../bower_modules/moment/min/moment.min.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="adonis" src="./../../js/adonisjs-websocket-client.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="moment_pt-br" src="./../../bower_modules/moment/locale/pt-br.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="consultar-processo" src="./consultar-processo.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/mascaras" src="./../../js/mascaras.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="servicos/publicoService" src="./../../servicos/publicoService.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/cabecalhoprocesso/cabecalhoprocesso" src="./../../componentes/cabecalhoprocesso/cabecalhoprocesso.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/detalhesprocesso/detalhesprocesso" src="./../../componentes/detalhesprocesso/detalhesprocesso.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/captcha/captcha" src="./../../componentes/captcha/captcha.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery.mask" src="./../../bower_modules/jQuery-Mask-Plugin/dist/jquery.mask.min.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="servicos/tj" src="./../../servicos/tj.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="servicos/autosService" src="./../../servicos/autosService.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/exibicaolidesrepetidas/exibicaolidesrepetidas" src="./../../componentes/exibicaolidesrepetidas/exibicaolidesrepetidas.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/resumoprocesso/resumoprocesso" src="./../../componentes/resumoprocesso/resumoprocesso.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/captcha" src="./../../js/captcha.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/historicoprocesso/historicoprocesso" src="./../../componentes/historicoprocesso/historicoprocesso.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/arquivosprocesso/arquivosprocesso" src="./../../componentes/arquivosprocesso/arquivosprocesso.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="servicos/autos" src="./../../servicos/autos.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="recaptcha" src="//www.google.com/recaptcha/api.js?onload=onloadCallbackRecaptcha&amp;render=explicit&amp;bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/bind-data-hora" src="./../../js/bind-data-hora.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/visualizador-pdf" src="./../../js/visualizador-pdf.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="componentes/previewarquivo/previewarquivo" src="./../../componentes/previewarquivo/previewarquivo.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/arquivo-util" src="./../../js/arquivo-util.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/bind-funcoes-comuns" src="./../../js/bind-funcoes-comuns.js?bust=20230323093600"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/pdfobject" src="./../../js/pdfobject.js?bust=20230323093600"></script></head>
+
+<body cz-shortcut-listen="true">
+    <div id="dapageloader" class=""></div>
+
+    <div id="passwordrestorer" class="hidden hidden-print" style="z-index: 999999; position: fixed; background-color: #fff; text-align: center; top: 50%; margin-top: -250px; left: 50%; margin-left: -200px; width:400px; height: 400px; padding: 50px; border: 1px solid #cecece;">
+        <div style="font-size: 45px; border-bottom: 2px solid #dedede; padding-bottom: 10px;">
+            <i class="icon-tucujuris"></i>
+            <span>Tucujuris</span>
+        </div>
+        <h3>Precisamos confirmar suas credênciais</h3>
+        <form action="">
+            <label>Por favor digite sua senha
+            <div class="form-group">
+                <input type="password" class="form-control" style="text-align: center" wfd-id="id0">
+            </div>
+
+            <button class="btn btn-default btn-block">Confirmar</button>
+        
+    </label></form></div>
+
+    <div>
+        <div class="tjtopbar">
+            <div class="container clearfix">
+                <div class="pull-left hidden-print">
+                    <a class="tucujuris-brand link-tjtopbar" href="../home/home.html">
+                        <i class="icon-tucujuris"></i>
+                        <span>Tucujuris</span>
+                        <span class="tjtopbar-data hidden-xs" data-bind="text : ''"></span>
+                    </a>
+                </div>
+                <div class="pull-right">
+                    <ul class="list-inline">
+                        <li>
+                            <perfilusuario><style>
+/* Indicador de Status da Conexão! */
+.ws-indicador {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.ws-indicador-user {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.ws-indicador-online {
+    background-color: #02a502;
+}
+
+.ws-indicador-offline {
+    background-color: red;
+}
+
+.ws-indicador-txt {
+    font-size: 12pt;
+}
+
+.ws-indicador-txt-online {
+    color: #02a502;
+}
+
+.ws-indicador-txt-offline {
+    color: red;
+}
+
+.profile-avatar {
+    position: relative;
+}
+</style>
+
+<!-- ko if : !usuario --><!-- /ko -->
+
+<!-- ko if : usuario -->
+<span class="profile-autenticado dropdown">
+<a href="#" dropdown-toggle="" id="dropdownMenuPerfilUsuario" data-toggle="dropdown" class="link-tjtopbar">
+    <span class="profile-avatar hidden-print">
+        <i class="icon-user"></i>
+        <span data-bind="attr: {
+    class: 'ws-indicador ws-indicador-user ' + ((websocket_connected)?'ws-indicador-online':'ws-indicador-offline')
+}" class="ws-indicador ws-indicador-user ws-indicador-online"></span>
+    </span>
+
+    <span class="profile-nome hidden-xs" data-bind="text : nomeCurto">FlávioCavalcante</span>
+    <span class="caret hidden-print"></span>
+    <span class="profile-spec hidden-xs">
+        <span data-bind="text : usuario.especialidade.login">29603862304</span>
+        -
+        <span data-bind="text : usuario.especialidade.tipo_especialidade">PROMOTOR DO MP</span>
+    </span>
+</a>
+
+<ul class="dropdown-menu dropdown-menu-right hidden-print" aria-labelledby="dropdownMenuPerfilUsuario">
+    <li class="dropdown-header tjtopbar-dropdown-header" style="color: black;background:#ddd;margin-bottom:10px;padding:15px 20px;">
+        <span class="clearfix">
+            <span data-bind="text : usuario.pessoa.nome" style="font-size: 1.5em;font-weight: bold;">FLÁVIO COSTA CAVALCANTE</span><br>
+            <span data-bind="text : usuario.especialidade.tipo_especialidade">PROMOTOR DO MP</span><br>
+            <a class="pull-right btn-link" href="../perfil/perfil.html">mostrar mais detalhes</a>
+        </span>
+        <!-- ko if : usuario.lotacao.descricao -->
+        <br>
+        <span class="clearfix">
+            <span data-bind="text : usuario.lotacao.descricao" class="clearfix">3ª Promotoria de Justiça Familia de Macapá</span>
+            <a class="pull-right btn-link" href="../definir-acesso-vara/definir-acesso-vara.html">trocar a lotação atual</a>
+        </span>
+        <!-- /ko -->
+    </li>
+    <li style="display:none;">
+        <a href="../perfil/perfil.html">Meu perfil</a>
+    </li>
+    <li style="display:none;">
+        <a href="../definir-acesso-vara/definir-acesso-vara.html">Trocar de unidade</a>
+    </li>
+    <li>
+        <a href="/nxdev/plantao/meus-plantoes"><i class="icon-relogio-alt"></i> Meus Plantões</a>
+    </li>
+    <li>
+        <a href="../cadastrar-certificado/cadastrar-certificado.html"><i class="icon-price-ribbon"></i> Certificado Digital</a>
+    </li>
+    <li>
+        <a href="../trocar-senha/trocar-senha.html"><i class="icon-key"></i> Trocar senha</a>
+    </li>
+    <li role="separator" class="divider"></li>
+    <li>
+        <a href="../logout/logout.html"><i class="icon-power-settings-new"></i> Sair</a>
+    </li>
+</ul>
+</span>
+<!-- /ko -->
+</perfilusuario>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <section id="main-content">
+            <div class="inner-content container">
+
+                <div class="row espaco-abaixo visible-print">
+                    <div class="col-xs-2 col-sm-1">
+                        <img src="../../img/brasao-tj.jpg" alt="Brasão da justiça">
+                    </div>
+                    <div class="col-xs-10">
+                        <span style="display: inline-block; margin-top: 10px;"><strong>PODER JUDICIÁRIO</strong></span><br>
+                        <span><strong>TRIBUNAL DE JUSTIÇA DO ESTADO DO AMAPÁ</strong></span><br>
+                        <small>Tucujuris - Sistema de gestão processual eletrônico</small>
+                    </div>
+                </div>
+
+                
+<section class="consulta-processo-page">
+    <div class="espaco-abaixo-2x hidden-print">
+        <div class="well clearfix" style="background:linear-gradient(141deg, #45B4E7 15%, #9FF3C3 51%, #FAEBA6 90%);">
+            <a class="btn btn-primary pull-right" href="https://sig.tjap.jus.br/agenda_control_numero_cnj/" target="_blank">Clique aqui! <i class="icon-forward"></i></a>
+            <!--a class="btn btn-primary pull-right disabled" href="#" target="_blank"><i class="icon-info"></i> Em	manutenção!</a-->
+            <i style="color:white;font-size:3em;" class="icon-conciliation pull-left"></i>
+            <h4 style="padding:0;font-weight: bold">Você sabia que a conciliação é um direito seu?! Agende uma sessão
+                e venha dialogar a solução do seu processo.</h4>
+        </div>
+        <h1 id="titulo-pagina">Consultar processo</h1>
+        <p class="lead">Você pode consultar os processos usando um dos parâmetros ou uma combinação deles.</p>
+    </div>
+
+    <ul class="nav nav-tabs hidden-print">
+        <li class="active">
+            <a href="#form-consulta" data-toggle="tab" aria-expanded="true">
+                <i class="icon-search"></i>
+                <span class="hidden-xs"> Consulta</span>
+            </a>
+        </li>
+
+        <!-- ko if: quantidadeTotalDeRegistros !== undefined -->
+        <li class="">
+            <a href="#resultado-consulta" id="tabResultado" data-toggle="tab" aria-expanded="false">
+                <i class="icon-list"></i>
+                <span class="hidden-xs"> Resultado</span>
+            </a>
+        </li>
+        <!-- /ko -->
+
+        <!-- ko if: detalhe --><!-- /ko -->
+    </ul>
+
+    <br>
+
+
+    <div class="tab-content">
+
+
+        <!--
+            ==========================================
+            FORMULARIO DA CONSULTA
+            ==========================================
+            -->
+        <div class="tab-pane active" id="form-consulta">
+            <div class="espaco-abaixo-2x">
+                <form data-bind="submit : consultar">
+                    <div class="row">
+                        <div class="col-sm-8 form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="inputnumerocnj">Nº do processo</label>
+                                    <input type="text" data-bind="value : parametros.numero_unico" class="form-control numcnj" wfd-id="id1">
+                                </div>
+                            </div>
+                            <span class="help-block">
+                                <span>Se a sua ação foi ajuizada até 2009 e você tem apenas o número de distribuição
+                                    ou número de tombo, pode usa-los para
+                                    <a href="../recuperar-numero-unico/recuperar-numero-unico.html">descobrir o
+                                        número único da justiça</a>. Processos ajuízados até 1988 estão disponíveis <a href="../consultar-processo-extf/consultar-processo-extf.html">aqui</a>.
+                                </span>
+                        </span></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="inputnumerodist">Nº de distribuição</label>
+                            <input type="text" data-bind="value : parametros.numero_distribuicao" class="form-control" pattern="[0-9/]*" wfd-id="id2">
+                            <span class="help-block">O número de distribuição se apresenta no formato
+                                NNNNNN/AAAA</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-8">
+                            <label for="inputnumerocnj">Nome da parte</label>
+                            <input type="text" data-bind="value : parametros.nome_parte" class="form-control" wfd-id="id3">
+                            <span data-bind="visible : !usuario" class="help-block" style="display: none;">Não serão mostrados os processos
+                                que tramitam em segredo de justiça</span>
+                        </div>
+                    </div>
+
+                    <div class="extra" data-bind="visible : maisOpcoes" style="display: none;">
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="inputnumerocnj">CPF/CNPJ da parte</label>
+                                <input type="text" data-bind="value : parametros.documento_parte" class="form-control cpfcnpj" wfd-id="id4">
+                                <span data-bind="visible : !usuario" class="help-block" style="display: none;">Não serão mostrados os
+                                    processos que tramitam em segredo de justiça</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="inputnumerocnj">OAB</label>
+                                <input type="text" data-bind="value : parametros.oab_advogado" class="form-control" wfd-id="id5">
+                                <span class="help-block">Exemplo: 1234AP</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                <label for="inputnumerocnj">Nome do advogado</label>
+                                <input type="text" data-bind="value : parametros.nome_advogado" class="form-control" wfd-id="id6">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="inputnumerocnj">Nº da carta precatória</label>
+                                <input type="text" data-bind="value : parametros.numero_carta_precatoria" class="form-control" wfd-id="id7">
+                                <span class="help-block">Número do processo de origem da carta precatória</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Situação do processo</label><br>
+                            <label class="radio-inline"><input name="situacao_processo" type="radio" value="0" data-bind="checked : parametros.situacao_processo" wfd-id="id8">em andamento</label>
+                            <label class="radio-inline"><input name="situacao_processo" type="radio" value="1" data-bind="checked : parametros.situacao_processo" wfd-id="id9">arquivado</label>
+                            <label class="radio-inline"><input name="situacao_processo" type="radio" value="" data-bind="checked : parametros.situacao_processo" wfd-id="id10">todos</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group form-control-captcha espaco-acima">
+                            <div id="captcha">
+                                <captcha params="{contexto : $element, captchaInfo: ko.getObservable($data, 'captchaInfo'), callback: captchaCallback}"><style>
+.tj-caixa-captcha {
+    position: relative;
+    width: 300px;
+    height: 74px;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+}
+
+.tj-caixa-captcha span {
+    display: inline-block;
+    line-height: 74px;
+    vertical-align: middle;
+}    
+
+.tj-caixa-captcha .tj-captcha-icon{
+    padding-left: 10px;
+    font-size: 40px;        
+}
+
+.tj-caixa-captcha .icon-check{
+    color: green;
+}    
+
+.tj-caixa-captcha .icon-security{
+    color: #2365B2;
+}    
+
+.tj-caixa-captcha .tj-captcha-texto{
+    font-family: Roboto,helvetica,arial,sans-serif;
+    font-size: 14px;
+}
+
+.tj-captcha-tem-passe .captcha-placeholder > div {
+    /* hack pra esconder o captcha que sempre é renderizado */
+    opacity: 0;
+    height: 0;
+    transition: 0.3s;
+    z-index: -1; /* evita que o maldito captcha fique na frente dos controles */
+}
+</style>
+
+<div class="captcha">
+<!-- ko if : captchaInfo  -->
+    <!-- ko if : captchaInfo.id === null && captchaInfo.passe === null --><!-- /ko -->    
+
+    <div data-bind="css : (captchaInfo.requerido ? '': 'hidden')" class="hidden">
+        <div class="captcha-placeholder"><div style="width: 304px; height: 78px;"><div><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdAcykTAAAAACD4MfZAyI8C_VAHA-DOceOBH8T7&amp;co=aHR0cHM6Ly90dWN1anVyaXMudGphcC5qdXMuYnI6NDQz&amp;hl=pt-BR&amp;v=NZrMWHVy58-S9gVvad9HVGxk&amp;size=normal&amp;cb=ln49sfqfgt0i" width="304" height="78" role="presentation" name="a-97t7p7jjp3ob" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
+    </div>
+<!-- /ko -->
+</div></captcha>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="espaco-acima espaco-abaixo-2x">
+
+                        <input id="btnConsultar" type="submit" value="Consultar" role="button" class="btn btn-primary btn-block-xs" style="min-width: 150px;" wfd-id="id11">
+
+                        <a href="#" data-bind="click : toggleMaisOpcoes, visible : !maisOpcoes" class="btn btn-link btn-block-xs" role="button">Consulta avançada</a>
+
+                        <a href="#" data-bind="click : toggleMaisOpcoes, visible : maisOpcoes" class="btn btn-link btn-block-xs" role="button" style="display: none;">Consulta simplificada</a>
+
+                        <!-- ko if : usuario -->
+                        <a href="../push/push.html" class="btn btn-link btn-block-xs">Ver os processos que eu
+                            acompanho</a>
+                        <!-- /ko -->
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+
+        <!--
+            ==========================================
+            RESULTADO DA CONSULTA
+            ==========================================
+            -->
+        <div id="resultado-consulta" class="tab-pane">
+
+            <div class="espaco-abaixo">
+
+                <!-- ko if : quantidadeTotalDeRegistros === 0 --><!-- /ko -->
+
+                <!-- ko if : quantidadeTotalDeRegistros > 0 -->
+                <div class="titulo-secao-pagina espaco-abaixo">
+                    <small class="text-muted">
+                        <span data-bind="text : 'Mostrando ' + resultados.length + ' de ' + quantidadeTotalDeRegistros + (resultados.length == 1 ? ' resultado' : ' resultados')">Mostrando 1 de 1 resultado</span>
+                    </small>
+                </div>
+
+                <!-- ko if : mensagens && mensagens.length > 0 --><!-- /ko -->
+
+                <div data-bind="foreach : resultados" class="list-group">
+                    <div class="espaco-abaixo">
+                        <div data-bind="css: 'item-lista-processo-' + cabecalho.id" class="list-group-item item-lista-processo-910172">
+                            <a href="#" data-bind="click : $parent.detalharProcesso">
+                                <cabecalhoprocesso params="processo : cabecalho, chaveConsumo : chave_consumo"><style>
+
+</style>
+<div class="cabecalhoprocesso">
+<!-- ko if: processo -->
+
+<div>
+    <!-- ko if: processo.numero_cnj && opcoes.numero_cnj-->
+    <div>
+        <h3>
+            <span class="numeros numcnj" data-bind="text: processo.numero_cnj">0014552-50.2016.8.03.0001</span>
+
+            <!-- ko if: opcoes.acoes -->
+            <small class="acao-processo hidden-print" data-bind="click : copiarNumeroUnico, clickBubble:false" data-toggle="tooltip" data-placement="top" title="" data-original-title="Copiar número do processo para área de transferência">
+                <i class="icon-paste"></i>
+                <span class="sr-only">Copiar número do processo para área de
+                    transferência</span>
+            </small>
+
+            <!-- ko if: processo.id -->
+            <small data-toggle="tooltip" data-placement="top" title="" class="hidden-print" data-original-title="Abrir esse processo em outra janela">
+                <a data-bind="
+                        attr : { href : '../detalhes-processo/detalhes-processo.html?id=' + processo.id + (chaveConsumo ? '&amp;cc=' + chaveConsumo : '')
+                    }" target="_blank" class="link-abrir-processo-nova-pagina" style="color: #777" onclick="url(event, this)" href="../detalhes-processo/detalhes-processo.html?id=910172">
+
+                    <i class="icon-external-link"></i>
+                    <span class="sr-only">Abrir esse processo em outra janela</span>
+                </a>
+            </small>
+            <!-- /ko -->
+
+            <small class="hidden-print">
+                <resumoprocesso params="{autosId: processo.id ,contexto:$element, rotulo:''}"><!-- ko if : params.autosId -->
+
+<a href="#" data-toggle="tooltip" data-placement="top" title="" data-bind="click: baixarAnexos, clickBubble:false " class="btDownload ui-resumoprocesso" style="text-decoration: none !important;color:#777" data-original-title="Baixar todas as peças do processo (experimental)">
+   <i class="icon-cloud-download" data-bind="visible: exibirIcone"> </i>
+   <span data-bind="text : rotulo"></span>
+</a>
+
+<!-- /ko --></resumoprocesso>
+            </small>
+
+            <small class="hidden-print" data-bind="visible: exibirDadosComplementares" data-toggle="tooltip" data-placement="top" title="" id="dados-complementares" style="display: none;" data-original-title="Ver dados complementares">
+                <!--a href="#" style="color: #777" data-bind="click: verComplementos">
+                    <i class="icon-calculator"></i>
+                </!--a-->
+                <a href="#modalDadoComplementares" data-bind="click: abrirDadosComplementares" style="color: #777">
+                    <i class="icon-calculator"></i>
+                </a>
+
+            </small>
+            <div class="modal modalDadoComplementares hidden-print" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" data-bind="click: fecharDadosComplementares">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Dados complementares
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div data-bind="html: htmlFormComplemento"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bind="click: fecharDadosComplementares">
+                                Fechar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </h3>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: opcoes.competencia -->
+    <p>
+        <!-- ko if: processo.lotacao -->
+        <span data-bind="text: processo.lotacao">1ª VARA CRIMINAL DE MACAPÁ</span>
+        <!-- /ko -->
+
+        <!-- ko if: processo.lotacao && processo.comarca -->
+        -
+        <!-- /ko -->
+
+        <!-- ko if: processo.comarca -->
+        <span data-bind="text: processo.comarca">MACAPÁ</span>
+        <!-- /ko -->
+
+        <!-- ko if: processo.nucleo --><!-- /ko -->
+
+        <!-- ko if: processo.rito -->
+        <br>
+        <span data-bind="text: processo.rito">PROCEDIMENTO ORDINÁRIO</span>
+        <!-- /ko -->
+
+        <!-- ko if: processo.classe -->
+        <br>
+        <span data-bind="text: processo.classe">AÇÃO PENAL - PROCEDIMENTO ORDINÁRIO</span>
+        <!-- /ko -->
+
+        <!-- ko if: processo.relator --><!-- /ko -->
+    </p>
+    <!-- /ko -->
+
+    <!-- ko if: processo.resumo_partes && opcoes.partes -->
+    <div>
+        <div data-bind="if: !exibirTodasAsPartes">
+            <!-- ko if : processo.resumo_partes.polo_ativo_parte_principal -->
+            <p>
+                <span data-bind="text : processo.resumo_partes.polo_ativo_parte_principal.desc_tipo_parte">PARTE AUTORA</span>
+                <span data-bind="text : processo.resumo_partes.polo_ativo_parte_principal.nome">MINISTÉRIO PÚBLICO DO ESTADO DO AMAPÁ</span>
+                <!-- ko if : processo.resumo_partes.polo_ativo_qtd_extra > 0 --><!-- /ko -->
+            </p>
+            <!-- /ko -->
+            <!-- ko if : processo.resumo_partes.polo_passivo_parte_principal -->
+            <p>
+                <span data-bind="text : processo.resumo_partes.polo_passivo_parte_principal.desc_tipo_parte">PARTE RÉ</span>
+                <span data-bind="text : processo.resumo_partes.polo_passivo_parte_principal.nome">RONALDO DE JESUS COSTA MACIEL</span>
+                <!-- ko if : processo.resumo_partes.polo_passivo_qtd_extra > 0 --><!-- /ko -->
+            </p>
+            <!-- /ko -->
+        </div>
+    </div>
+
+
+
+    <!-- ko if : exibirTodasAsPartes --><!-- /ko -->
+
+    <!-- /ko -->
+
+
+    <!-- ko if: opcoes.indicadores -->
+    <div class="indicadores">
+        <span data-bind="visible : processo.arquivado" style="color: purple">
+            <i class="icon-folder-alt"></i> Arquivado
+        </span>
+
+        <span data-bind="visible : processo.autos_suspenso" style="font-weight: bold; display: none;">
+            <i class="icon-exclam"></i>
+            <span data-bind="text: processo.autos_suspenso"></span>
+        </span>
+
+        <span data-bind="visible : (processo.virtual &amp;&amp; !processo.misto &amp;&amp; !processo.juizo_digital)" style="color: rgb(66, 133, 244); display: none;">
+            <i class="icon-cloud"></i> Processo eletrônico
+        </span>
+
+        <span data-bind="visible : processo.misto" style="color: rgb(99, 70, 216); display: none;">
+            <i class="icon-folder-alt"></i> Processo misto
+        </span>
+
+        <span data-bind="visible : processo.juizo_digital" style="color: rgb(206, 72, 68); display: none;">
+            Juizo 100% Digital
+        </span>
+
+        <span data-bind="visible : processo.segredo_justica" style="color: orange; display: none;">
+            <i class="icon-bullhorn"></i> Segredo de justiça
+        </span>
+
+        <!-- ko if : opcoes.lidesrepetidas && usuario && processo.lides_repetidas && processo.lides_repetidas.length > 0 --><!-- /ko -->
+
+        <!-- ko if : usuario && processo.notificacoes && processo.notificacoes.length > 0 --><!-- /ko -->
+
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if : visualizacao_lidesrepetidas_expandido --><!-- /ko -->
+</div>
+<!-- /ko -->
+
+
+
+
+</div></cabecalhoprocesso>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ko if : (resultados && resultados.length < (quantidadeTotalDeRegistros || 0)) --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+        </div>
+
+
+
+        <!--
+            ==========================================
+            DETALHE PROCESSO
+            ==========================================
+            -->
+        <!-- ko if : detalhe --><!-- /ko -->
+
+    </div><!-- fim tab-content -->
+
+</section>
+
+
+            </div>
+        </section>
+
+    </div>
+
+    <a href="#main-content" id="back-to-top" class="hidden-print">
+        <i class="icon-chevron-up"></i>
+        <span class="sr-only">Voltar ao topo</span>
+    </a>
+
+    <div class="device-xs visible-xs"></div>
+    <div class="device-sm visible-sm"></div>
+    <div class="device-md visible-md"></div>
+    <div class="device-lg visible-lg"></div>
+
+    <script>requirejs(['../../js/app'], function (app) {app.start('consultar-processo');});</script>
+
+    
+
+    <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-1253160-9', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+
+<div id="divSmallBoxes"></div><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="o desafio reCAPTCHA expira em dois minutos" src="https://www.google.com/recaptcha/api2/bframe?hl=pt-BR&amp;v=NZrMWHVy58-S9gVvad9HVGxk&amp;k=6LdAcykTAAAAACD4MfZAyI8C_VAHA-DOceOBH8T7" name="c-97t7p7jjp3ob" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div></body></html>
