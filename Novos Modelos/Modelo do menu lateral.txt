@@ -1,0 +1,84 @@
+<nav id="sidebarMenu" class="col-md-3 col-sm-12 d-md-block bg-light sidebar collapse">
+    <style>
+        .nav-link {
+            color: #124676; /* Cor inicial das letras */
+            padding: 10px;
+            display: block;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .nav-link.blue-link:hover {
+            background-color: #124676; /* Cor de fundo ao passar o mouse */
+            color: #ffffff !important; /* Cor das letras ao passar o mouse */
+        }
+        
+        .child-hotsite {
+            font-size: 14px;
+        }
+    </style>
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti">
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti/#">
+                    Composição das Promotorias
+                </a>
+            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/cgcao/cao-cidadania/#">
+                    <b>Material de Apoio</b>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link child-hotsite" aria-current="page" href="https://www.mpap.mp.br/portais/cgcao/cao-cidadania/material-de-apoio/cartilhas-cid/">
+                    &nbsp;&nbsp;&nbsp;&nbsp;- Legislação
+                </a>
+            </li>
+            <li class="nav-item">
+                
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link child-hotsite" aria-current="page" href="https://www.mpap.mp.br/portais/cgcao/cao-cidadania/material-de-apoio/cartilhas-cid/">
+                    &nbsp;&nbsp;&nbsp;&nbsp;- Jurisprudência
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link child-hotsite" aria-current="page" href="https://www.mpap.mp.br/portais/cgcao/cao-cidadania/material-de-apoio/cartilhas-cid/">
+                    &nbsp;&nbsp;&nbsp;&nbsp;- Modelos de Manifestações MP-AP
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti/mp-cloud/">
+                    Plano de Ação
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti/mp-cloud/">
+                    Relatórios de Atividades Anuais
+                </a>
+            </li><li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti/relatorios-de-gestao-dti-e-ceti/">
+                    Ações / Projetos Sociais
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti/peti-e-pdti/">
+                    Contatos e Canais de Atendimento
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link blue-link" aria-current="page" href="https://www.mpap.mp.br/portais/portal-da-ti/ceti/">
+                    Atribuições das Promotorias da Família
+                </a>
+            </li>
+            <li class="nav-item"></li>
+        </ul>
+    </div>
+</nav>
